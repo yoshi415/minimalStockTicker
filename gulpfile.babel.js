@@ -1,3 +1,4 @@
+import babel from 'babelify';
 import del from 'del';
 import gulp from 'gulp';
 import gutil from 'gulp-util';
@@ -19,16 +20,18 @@ const paths = {
   }
 };
 
-function build() {
+function build(file) {
   cleanDirectory('js', file);
 
   browserify(paths.in.js + file + '/' + file + '.js', { debug: true })
+    .transform(babel)
     .bundle()
     .on('error', (error) => {
       gutil.log(error)
     })
     .pipe(source(file + '.js'))
     .pipe(buffer())
+    .pipe(rename({ suffix: '.min' }))
     .pipe(gulp.dest(paths.out.js));
 }
 
@@ -42,7 +45,7 @@ gulp.task('buildBackground', () => {
 });
 
 gulp.task('buildContent', () => {
-  build('buildContent');
+  build('content');
 });
 
 gulp.task('buildPopup', () => {

@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+  "author": "Yoshio Varney & Ryan Jones",
+  "name": "Minimal Stock Ticker",
+  "description": "Chrome extension providing minimal, unobtrusive stock ticker",
+  "version": "0.1",
+  "icons": {
+    "16": "assets/images/ticker16.png",
+    "48": "assets/images/ticker48.png"
+  },
+
+  "browser_action": {
+    "default_icon": "assets/images/ticker16.png",
+    "default_popup": "popup.html",
+    "default_title": "Minimal Stock Ticker"
+  },
+
+  "permissions": [
+    "https://finance.yahoo.com/**/*"
+  ],
+
+  "background": {
+    "scripts": [ "js/background.min.js" ]
+  }
+}
