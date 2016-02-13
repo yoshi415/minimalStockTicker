@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
-  <meta charset="UTF-8">
+  <meta charset='UTF-8'>
   <title>Minimal Stock Ticker</title>
+  <link rel="stylesheet" type="text/css" href="assets/styles/styles.css">
 </head>
 <body>
-  <script src="js/popup.min.js"></script>
+  <div id='form-inline'>
+    <input type='text' id="symbolValue" />
+    <button type='button' id='symbolBtn'>Add</button>
+  </div>
+  <p id='inputText'>Enter a symbol to add</p>
+
+  <div id='separator'></div>
+
+  <p id='directions'>Click to remove symbol</p>
+  <div id='displaySymbols'></div>
+
+  <script src='js/popup.min.js'></script>
 </body>
 </html>

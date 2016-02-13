@@ -16,7 +16,7 @@
   },
 
   "permissions": [
-    "https://finance.yahoo.com/**/*"
+    "https://finance.yahoo.com/**/*", "storage"
   ],
 
   "background": {
