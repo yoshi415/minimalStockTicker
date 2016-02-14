@@ -75,7 +75,8 @@ gulp.task('watch', () => {
   gulp.watch('plugin/source/background/**/*.js', [ 'buildBackground' ]);
   gulp.watch('plugin/source/content/**/*.js', [ 'buildContent' ]);
   gulp.watch('plugin/source/popup/**/*.js', [ 'buildPopup' ]);
-  gulp.watch('plugin/source/styles/**/*.scss' [ 'buildCss' ]);
+  gulp.watch('plugin/source/styles/**/*', [ 'buildCss' ]);
+  gulp.watch('plugin/source/util/**/*.js', [ 'build' ]);
 });
 
 gulp.task('default', [ 'build', 'watch' ]);

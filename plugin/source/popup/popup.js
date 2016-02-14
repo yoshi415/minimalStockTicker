@@ -1,4 +1,3 @@
-import 'babel-polyfill';
 import getQuote from '../util/fetch';
 
 let symbols;
@@ -17,19 +16,21 @@ function init() {
 
 function addSymbol() {
   const textField = document.getElementById('symbolValue');
-  const toAdd = textField.value;
+  const toAdd = [textField.value];
   
   if (toAdd) {
     getQuote(toAdd).then((data) => {
       if (data) {
-        const symbol = data.symbol.toUpperCase();
-        symbols[data.name] = symbol;
+        const stock = data[0].resource.fields;
+        const symbol = stock.symbol.toUpperCase();
+
+        symbols[stock.name] = symbol;
         chrome.storage.sync.set({ symbols });
         message.innerHTML = `${symbol} added successfully!`;
         textField.value = '';
         displaySymbols();
       } else {
-        message.innerHTML = 'Symbol does not exist!\n Please try again';
+        message.innerHTML = 'Symbol does not exist! Try again';
       }
     });
   }
@@ -38,6 +39,7 @@ function addSymbol() {
 function removeSymbol(symbol) {
   delete symbols[symbol];
   chrome.storage.sync.set({ symbols });
+  message.innerHTML = `${symbol} has been removed.`;
   displaySymbols();
 }
 
@@ -46,14 +48,14 @@ function displaySymbols() {
   const list = [];
   let html = '';
 
-  for (var symbol in symbols) {
+  for (let symbol in symbols) {
     list.push([symbol, symbols[symbol]]);
   }
   list.sort();
   list.forEach((symbol) => {
-    html += `<input type='checkbox' id='${symbol[1]}'>${symbol[0]}</input><br />`;  
+    html += `<input type='checkbox' id='${symbol[1]}'>(${symbol[1]})  ${symbol[0]}</input><br />`;  
   });
-  
+
   display.innerHTML = '';
   display.innerHTML = html;
   attachHandlers();
@@ -71,6 +73,7 @@ function update(interval) {
 
 function returnSubmit(e) {
   if (e && e.keyCode === 13) {
+    e.preventDefault();
     addSymbol();
   }
 }
