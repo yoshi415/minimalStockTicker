@@ -36,13 +36,6 @@ function addSymbol() {
   }
 }
 
-function removeSymbol(symbol) {
-  delete symbols[symbol];
-  chrome.storage.sync.set({ symbols });
-  message.innerHTML = `${symbol} has been removed.`;
-  displaySymbols();
-}
-
 function displaySymbols() {
   const display = document.getElementById('displaySymbols');
   const list = [];
@@ -61,14 +54,17 @@ function displaySymbols() {
   attachHandlers();
 }
 
+function removeSymbol(symbol) {
+  delete symbols[symbol];
+  chrome.storage.sync.set({ symbols });
+  message.innerHTML = `${symbol} has been removed.`;
+  displaySymbols();
+}
+
 function attachHandlers() {
   for (let symbol in symbols) {
     document.getElementById(symbols[symbol]).addEventListener('click', removeSymbol.bind(this, symbol));
   }
-}
-
-function update(interval) {
-  //update quotes
 }
 
 function returnSubmit(e) {
