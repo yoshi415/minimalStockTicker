@@ -1,11 +1,11 @@
 import 'babel-polyfill';
 import getQuotes from './helpers/getQuotes';
 
-let symbols = { symbols: [ "MSFT", "LNKD", "FB", "GOOG" ] };
+let symbols;
 
 chrome.storage.sync.get('symbols', (storage) => {
-  symbols = storage.symbols || symbols;
-  getQuotes(symbols)
+  symbols = storage.symbols || [];
+  getQuotes(symbols);
   update(symbols);
 });
 
