@@ -16,10 +16,23 @@
   },
 
   "permissions": [
-    "https://finance.yahoo.com/**/*", "storage"
+    "https://finance.yahoo.com/**/*", "storage", "tabs", "*://*/*", "<all_urls>"
   ],
 
   "background": {
     "scripts": [ "js/background.min.js" ]
-  }
+  },
+
+  "content_scripts": [
+    {
+      "matches": [ "http://*/*" ],
+      "js": [ "js/content.min.js" ],
+      "all_frames": true,
+      "match_about_blank": true
+    }
+  ],
+
+  "web_accessible_resources": [
+    "stockTicker.html"
+  ]
 }

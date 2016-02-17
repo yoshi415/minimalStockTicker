@@ -4,7 +4,7 @@ let symbols;
 const message = document.getElementById('inputText');
 
 chrome.storage.sync.get('symbols', (storage) => {
-  symbols = storage.symbols;
+  symbols = storage.symbols || {};
   init(); 
   displaySymbols();
 });
@@ -17,20 +17,19 @@ function init() {
 function addSymbol() {
   const textField = document.getElementById('symbolValue');
   const toAdd = [textField.value];
-  
+
   if (toAdd) {
     getQuote(toAdd).then((data) => {
-      if (data) {
+      if (data.length > 0) {
         const stock = data[0].resource.fields;
         const symbol = stock.symbol.toUpperCase();
-
         symbols[stock.name] = symbol;
         chrome.storage.sync.set({ symbols });
         message.innerHTML = `${symbol} added successfully!`;
         textField.value = '';
         displaySymbols();
       } else {
-        message.innerHTML = 'Symbol does not exist! Try again';
+        message.innerHTML = 'Symbol could not be looked up! Try again';
       }
     });
   }
@@ -44,7 +43,7 @@ function displaySymbols() {
   for (let symbol in symbols) {
     list.push([symbol, symbols[symbol]]);
   }
-  list.sort();
+  // list.sort();
   list.forEach((symbol) => {
     html += `<input type='checkbox' id='${symbol[1]}'>(${symbol[1]})  ${symbol[0]}</input><br />`;  
   });
