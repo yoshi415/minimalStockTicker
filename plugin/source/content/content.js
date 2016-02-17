@@ -1,14 +1,18 @@
 import 'babel-polyfill';
-import iframe from './helpers/iframe';
-import getQuote from '../util/fetch';
+import getQuotes from './helpers/getQuotes';
 
-let symbols;
+let symbols = { symbols: [ "MSFT", "LNKD", "FB", "GOOG" ] };
 
 chrome.storage.sync.get('symbols', (storage) => {
-  symbols = storage.symbols;
-  iframe(symbols)
+  symbols = storage.symbols || symbols;
+  getQuotes(symbols)
+  update(symbols);
 });
 
-// var change = 'chg_percent'
-// var price = 'price'
-// var css = document.body.style['transform'] = "translateY(50px)";
+chrome.storage.onChanged.addListener((changed) => {
+  // update(changed.symbols.newValue);
+})
+
+function update(newValues) {
+  setInterval(getQuotes.bind(this, newValues), 10000);
+}

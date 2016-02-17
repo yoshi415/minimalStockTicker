@@ -7,10 +7,12 @@ export default (symbols) => {
     stocks.push(symbols[symbol]);
   }
   getQuote(stocks).then((data) => {
-    console.log(data)
     data.forEach((stock) => {
       let symbol = stock.resource.fields;
-      html += `<span> ${symbol.symbol} ${Number(symbol.price).toFixed(2)} ${Number(symbol.chg_percent).toFixed(2)}% |  </span>`
+      let sym = symbol.symbol;
+      let price = Number(symbol.price).toFixed(2);
+      let chg = Number(symbol.chg_percent).toFixed(2);
+      html += `<span> ${sym} ${price} ${chg}% |  </span>`;
     })
     appendHTML(html);
   });
@@ -18,7 +20,12 @@ export default (symbols) => {
 
 function appendHTML(html) {
   const body = document.getElementsByTagName('body')[0];
+  let del = document.getElementById('deleteStock');
+  if (del) {
+    del.remove();
+  }
   let element = document.createElement('span');
+  element.setAttribute('id', 'deleteStock');
   element.innerHTML = html;
   body.insertBefore(element, body.firstChild);
 }
