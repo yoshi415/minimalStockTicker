@@ -70,6 +70,7 @@ function displaySymbols() {
 function removeSymbol(symbol) {
   let remove = symbols.indexOf(symbol);
   symbols.splice(remove, 1);
+  chrome.storage.sync.set({ symbols });
   message.innerHTML = `${symbol} has been removed.`;
   displaySymbols();
 }
