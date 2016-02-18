@@ -18,13 +18,15 @@
   "devDependencies": {
     "babel": "^6.5.1",
     "babel-core": "^6.5.1",
-    "babel-preset-stage-3": "^6.5.0",
     "babel-preset-es2015": "^6.5.0",
+    "babel-preset-stage-3": "^6.5.0",
+    "babel-register": "^6.5.2",
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
     "del": "^2.2.0",
     "gulp": "^3.9.0",
     "gulp-cssnano": "^2.1.0",
+    "gulp-if": "^2.0.0",
     "gulp-jshint": "^2.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.5.1",
@@ -33,9 +35,10 @@
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0",
-    "gulp-scss": "^1.3.17"
+    "gulp-scss": "^1.3.17",
+    "yargs": "^4.1.0"
   },
   "dependencies": {
-    "babel-polyfill": "^6.5.0",
+    "babel-polyfill": "^6.5.0"
   }
 }
