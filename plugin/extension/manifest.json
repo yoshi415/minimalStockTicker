@@ -27,6 +27,7 @@
     {
       "matches": [ "http://*/*" ],
       "js": [ "js/content.min.js" ],
+      "css": [ "assets/styles/content.css" ],
       "all_frames": true,
       "match_about_blank": true
     }

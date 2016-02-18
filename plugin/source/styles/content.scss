@@ -1,0 +1,25 @@
+/* content */
+.stockSpan {
+  font-family: "Roboto", serif;
+  font-size: 10px;
+}
+
+.negative {
+  color: red;
+}
+
+.positive {
+  color: green;
+}
+
+.stockLink:link {
+  color: black;
+}
+
+.stockLink:visited {
+  color: black;
+}
+
+.stockLink:hover {
+  color: blue;
+}
