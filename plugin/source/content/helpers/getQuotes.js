@@ -16,14 +16,11 @@ export default (symbols) => {
 
 function createSpan(stock, index, last) {
   let symbol = stock.resource.fields;
-  console.log(symbol)
-  // let sym = symbol.symbol;
   let sym = `<a class="stockLink" target="_blank" href="http://finance.yahoo.com/q?s=${symbol.symbol}">${symbol.symbol}</a>`;
   let price = Number(symbol.price).toFixed(2);
   let chg = Number(symbol.chg_percent).toFixed(2);
   let span = `<span class="stockFont"> ${sym} ${price} <span class="`;
   span += chg[1] !== '-' ? 'positive' : 'negative';
-  // console.log('per', symbol.chg_percent)
   span += `">${chg}</span>%`;
   if (index !== last) {
     span += ' |';

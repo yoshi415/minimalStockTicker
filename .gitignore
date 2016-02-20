@@ -2,3 +2,4 @@ node_modules
 ignore
 .gulp-scss-cache
 .sass-cache
+.ds_store
