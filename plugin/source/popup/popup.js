@@ -1,21 +1,15 @@
-import getQuote from '../util/fetch';
+import fetchQuote from '../util/fetch';
+import updateSymbols from '../util/update';
 
 let symbols;
 const message = document.getElementById('inputText');
 
+document.getElementById('symbolBtn').addEventListener('click', addSymbol);
+document.getElementById('symbolValue').addEventListener('keypress', returnSubmit);
+
 chrome.storage.sync.get('symbols', (storage) => {
   symbols = storage.symbols || [];
   displaySymbols();
-});
-  init(); 
-
-function init() {
-  document.getElementById('symbolBtn').addEventListener('click', addSymbol);
-  document.getElementById('symbolValue').addEventListener('keypress', returnSubmit);
-}
-
-chrome.storage.onChanged.addListener((storage) => {
-  symbols = storage.symbols.newValue;
 });
 
 function addSymbol() {
@@ -23,11 +17,11 @@ function addSymbol() {
   const toAdd = [textField.value];
 
   if (toAdd) {
-    getQuote(toAdd).then((quote) => {
+    fetchQuote(toAdd).then((quote) => {
       if (quote.length > 0) {
         const data = quote[0].resource.fields;
         const symbol = data.symbol.toUpperCase();
-        const stock = [ symbol, data.name ]
+        const stock = [ symbol, data.name,  ]
         textField.value = '';
 
         if (symbolNotFound(symbols, symbol)) {
@@ -35,6 +29,7 @@ function addSymbol() {
           chrome.storage.sync.set({ symbols });
           message.innerHTML = `${symbol} added successfully!`;
           displaySymbols();
+          updateSymbols();
         }
       } else {
         message.innerHTML = 'Symbol could not be looked up! Try again';

@@ -1,17 +1,11 @@
-import getQuote from '../../util/fetch';
-
-export default (symbols) => {
+export default (stocks) => {
   let html = '';
-  const last = symbols.length - 1;
+  const last = stocks.length - 1;
 
-  if (symbols.length > 0) {
-    getQuote(symbols).then((data) => {
-      data.forEach((stock, index) => {
-        html += createSpan(stock, index, last);
-      })
-      appendHTML(html);
-    });
-  }
+  stocks.forEach((stock, index) => {
+    html += createSpan(stock, index, last);
+  })
+  appendHTML(html);
 }
 
 function createSpan(stock, index, last) {
@@ -19,6 +13,7 @@ function createSpan(stock, index, last) {
   let sym = `<a class="stockLink" target="_blank" href="http://finance.yahoo.com/q?s=${symbol.symbol}">${symbol.symbol}</a>`;
   let price = Number(symbol.price).toFixed(2);
   let chg = Number(symbol.chg_percent).toFixed(2);
+
   let span = `<span class="stockFont"> ${sym} ${price} <span class="`;
   span += chg[1] !== '-' ? 'positive' : 'negative';
   span += `">${chg}</span>%`;

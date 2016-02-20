@@ -16,11 +16,12 @@
   },
 
   "permissions": [
-    "https://finance.yahoo.com/**/*", "storage", "tabs", "*://*/*", "<all_urls>"
+    "storage", "alarms", "<all_urls>"
   ],
 
   "background": {
-    "scripts": [ "js/background.min.js" ]
+    "scripts": [ "js/background.min.js" ],
+    "persistent": false
   },
 
   "content_scripts": [

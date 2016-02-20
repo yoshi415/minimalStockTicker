@@ -1,19 +1,23 @@
 import 'babel-polyfill';
-import getQuotes from './helpers/getQuotes';
+import displayStocks from './helpers/displayStocks';
+import updateQuotes from '../util/update';
 
-let symbols;
+let stocks;
 
-chrome.storage.sync.get('symbols', (storage) => {
-  console.log('wut')
-  symbols = storage.symbols || [];
-  getQuotes(symbols);
-  update(symbols);
-});
+// chrome.storage.sync.get('stocks', (storage) => {
+//   stocks = storage.stocks || [];
+//   displayStocks(stocks);
+// });
+getStocks();
 
 chrome.storage.onChanged.addListener((changed) => {
-  // update(changed.symbols.newValue);
+  let update = changed.stocks.newValue
+  displayStocks(update);
 });
 
-function update(newValues) {
-  setInterval(getQuotes.bind(this, newValues), 10000);
+function getStocks() {
+  chrome.storage.sync.get('stocks', (storage) => {
+    stocks = storage.stocks || [];
+    displayStocks(stocks);
+  });
 }
