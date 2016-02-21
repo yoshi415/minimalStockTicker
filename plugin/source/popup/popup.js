@@ -63,11 +63,19 @@ function displaySymbols() {
 }
 
 function removeSymbol(symbol) {
-  let remove = symbols.indexOf(symbol);
-  symbols.splice(remove, 1);
-  chrome.storage.sync.set({ symbols });
-  message.innerHTML = `${symbol} has been removed.`;
-  displaySymbols();
+  chrome.storage.sync.get('symbols', (storage) => {
+    symbols = storage.symbols;
+    let remove;
+    symbols.forEach((stock, index) => {
+      if (stock[0] === symbol) {
+        remove = index;
+      }
+    });
+    symbols.splice(remove, 1);
+    chrome.storage.sync.set({ symbols });
+    message.innerHTML = `${symbol} has been removed.`;
+    displaySymbols();
+  });
 }
 
 function attachHandlers() {
