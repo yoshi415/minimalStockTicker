@@ -16,7 +16,7 @@
   },
 
   "permissions": [
-    "storage", "alarms", "<all_urls>"
+    "storage", "alarms", "tabs", "<all_urls>"
   ],
 
   "background": {
@@ -24,17 +24,14 @@
     "persistent": false
   },
 
-  "content_scripts": [
-    {
-      "matches": [ "http://*/*" ],
-      "js": [ "js/content.min.js" ],
-      "css": [ "assets/styles/content.css" ],
-      "all_frames": true,
-      "match_about_blank": true
-    }
-  ],
+  "content_scripts": [{
+    "matches": [ "http://*/*", "https://*/*" ],
+    "js": ["js/content.min.js"],
+    "css": [ "assets/styles/content.css" ],
+    "match_about_blank": true
+  }],
 
   "web_accessible_resources": [
-        "stockTicker.html"
+    "stockTicker.html"
   ]
 }
