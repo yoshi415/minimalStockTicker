@@ -1,5 +1,5 @@
 import 'babel-polyfill';
-import createiFrame from './helpers/iframe';
+import { createiFrame, removeiFrame, getiFrame } from './helpers/iframe';
 
 chrome.storage.sync.get('stocks', (storage) => {
   if (storage.stocks) {
@@ -8,7 +8,16 @@ chrome.storage.sync.get('stocks', (storage) => {
 });
 
 chrome.storage.onChanged.addListener((changed) => {
-  let iframe = document.getElementById('minimalStockTicker');
+  const iframe = getiFrame();
+  // if (changed.stocks) {
+  //   const stocksList = changed.stocks.newValue.length;
+  //   console.log(changed.stocks.newValue)
+  //   if (stocksList === 0) {
+  //     removeiFrame();
+  // console.log('removing')
+  //   }
+    
+  // }
   if (!iframe) {
     createiFrame();
   }

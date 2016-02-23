@@ -21,7 +21,7 @@ function addSymbol() {
       if (quote.length > 0) {
         const data = quote[0].resource.fields;
         const symbol = data.symbol.toUpperCase();
-        const stock = [ symbol, data.name,  ]
+        const stock = [ symbol, data.name ]
         textField.value = '';
 
         if (symbolNotFound(symbols, symbol)) {
@@ -71,7 +71,7 @@ function removeSymbol(symbol) {
         remove = index;
       }
     });
-    symbols.splice(remove, 1);
+    let x = symbols.splice(remove, 1);
     chrome.storage.sync.set({ symbols });
     message.innerHTML = `${symbol} has been removed.`;
     displaySymbols();

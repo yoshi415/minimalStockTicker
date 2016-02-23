@@ -15,6 +15,7 @@ function createSpan(stock, index, last) {
   let monthIndex = date.getMonth();
   let year = date.getFullYear();
   let blah = date.toString().replace(/\S+\s(\S+)\s(\d+)\s(\d+)\s.*/,'$2-$1-$3')
+  // console.log(date, day, monthIndex, year, blah)
   let sym = `<a class="stockLink" target="_blank" href="http://finance.yahoo.com/q?s=${symbol.symbol}">${symbol.symbol}</a>`;
   let price = Number(symbol.price).toFixed(2);
   let chg = Number(symbol.chg_percent).toFixed(2);
