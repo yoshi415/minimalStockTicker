@@ -11,18 +11,6 @@ chrome.storage.onChanged.addListener((changed) => {
     displayStocks(changed.stocks.newValue);
   }
   if (changed.symbols) {
-    removeiFrame();
-    // if (changed.symbols.newValue.length) {
-    //   updateQuotes(changed.symbols.newValue);
-    // } else {
-    //   removeiFramea();
-    // }
+    updateQuotes(changed.symbols.newValue);
   }
 });
-
-function removeiFramea() {
-  var iframe = document.getElementById('minimalStockTicker')
-  // const iframe = getiFrame();
-  iframe.remove();
-  document.body.style['transform'] = 'translateY(0px)';
-}

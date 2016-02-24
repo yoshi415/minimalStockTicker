@@ -9,16 +9,19 @@ chrome.storage.sync.get('stocks', (storage) => {
 
 chrome.storage.onChanged.addListener((changed) => {
   const iframe = getiFrame();
-  // if (changed.stocks) {
-  //   const stocksList = changed.stocks.newValue.length;
-  //   console.log(changed.stocks.newValue)
-  //   if (stocksList === 0) {
-  //     removeiFrame();
-  // console.log('removing')
-  //   }
-    
+  if (changed.symbols) {
+    if (!changed.symbols.newValue.length) {
+      removeiFramea();
+    }
+  }
   // }
   if (!iframe) {
     createiFrame();
   }
 });
+
+function removeiFramea() {
+  let iframe = document.getElementById('minimalStockTicker')
+  iframe.remove();
+  document.body.style['transform'] = 'translateY(0px)';
+}

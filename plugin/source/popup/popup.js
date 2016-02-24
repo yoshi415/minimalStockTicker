@@ -63,6 +63,7 @@ function displaySymbols() {
 }
 
 function removeSymbol(symbol) {
+  console.log('running')
   chrome.storage.sync.get('symbols', (storage) => {
     symbols = storage.symbols;
     let remove;
@@ -72,6 +73,7 @@ function removeSymbol(symbol) {
       }
     });
     let x = symbols.splice(remove, 1);
+    console.log(x)
     chrome.storage.sync.set({ symbols });
     message.innerHTML = `${symbol} has been removed.`;
     displaySymbols();
