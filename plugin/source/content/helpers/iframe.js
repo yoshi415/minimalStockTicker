@@ -3,13 +3,13 @@ function createiFrame() {
   if (!exists) {
     document.body.style.position = 'relative';
     document.getElementsByTagName('html')[0].style.top = '0px';
-    document.getElementsByTagName('html')[0].style.marginTop = '25px';
+    // document.getElementsByTagName('html')[0].style.marginTop = '25px';
     const frame = document.createElement('iframe');
     frame.setAttribute('src', '' + chrome.extension.getURL('stockTicker.html'));
     frame.setAttribute('id', 'minimalStockTicker');
-    // frame.setAttribute('width', '100%');
+    frame.setAttribute('width', '100%');
     // frame.style.width = '50%'
-    frame.style.backgroundColor = 'lightgrey'
+    frame.style.backgroundColor = 'white';
     frame.style.height = '25px';
     frame.style.border = 'none';
     frame.style.position = 'absolute';
@@ -20,7 +20,7 @@ function createiFrame() {
     // frame.style.marginLeft = '0px';
     frame.style.zIndex = '10000000';
     frame.style.width = '100%';
-    // document.body.style['transform'] = 'translateY(25px)';
+    document.body.style['transform'] = 'translateY(25px)';
     document.documentElement.appendChild(frame, document.documentElement);
   }
 }
