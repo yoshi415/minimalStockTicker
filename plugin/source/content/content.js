@@ -1,8 +1,11 @@
 import 'babel-polyfill';
 import { createiFrame, removeiFrame, getiFrame } from './helpers/iframe';
 
-chrome.storage.sync.get('stocks', (storage) => {
-  if (storage.stocks) {
+let blacklisted;
+
+chrome.storage.sync.get(['stocks', 'blacklisted'], (storage) => {
+  blacklisted = storage.blacklisted || [];
+  if (storage.stocks && checkBlacklist(blacklisted)) {
     createiFrame();
   }
 });
@@ -14,13 +17,25 @@ chrome.storage.onChanged.addListener((changed) => {
       removeiFramea();
     }
   }
-  if (!iframe) {
+  if (!iframe && checkBlacklist(blacklisted)) {
     createiFrame();
   }
 });
+
+chrome.runtime.onMessage.addListener(
+  (request, sender, sendResponse) => {
+    if (request.remove === true) {
+      removeiFrame();
+    }
+  });
 
 function removeiFramea() {
   let iframe = document.getElementById('minimalStockTicker')
   iframe.remove();
   document.body.style['transform'] = 'translateY(0px)';
+}
+
+function checkBlacklist(list) {
+  console.log(window.location.href)
+  return list.indexOf(window.location.href) === -1;
 }

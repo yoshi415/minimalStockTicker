@@ -1,16 +1,34 @@
 import fetchQuote from '../util/fetch';
 import updateSymbols from '../util/update';
 
-let symbols;
+let symbols, blacklisted;
 const message = document.getElementById('inputText');
 
 document.getElementById('symbolBtn').addEventListener('click', addSymbol);
 document.getElementById('symbolValue').addEventListener('keypress', returnSubmit);
+document.getElementById('blacklist').addEventListener('click', blacklist);
 
-chrome.storage.sync.get('symbols', (storage) => {
+chrome.storage.sync.get([ 'symbols', 'blacklisted' ], (storage) => {
   symbols = storage.symbols || [];
+  blacklisted = storage.blacklisted || [];
   displaySymbols();
 });
+
+function blacklist() {
+  chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => { 
+    const url = tabs[0].url;
+    blacklisted.push(url);
+    chrome.storage.sync.set({ blacklisted })
+  });
+  removeiFrame();
+}
+
+function removeiFrame() {
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    chrome.tabs.sendMessage(tabs[0].id, { remove: true });
+  });
+}
+
 
 function addSymbol() {
   const textField = document.getElementById('symbolValue');
