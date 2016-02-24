@@ -14,7 +14,6 @@ chrome.storage.onChanged.addListener((changed) => {
       removeiFramea();
     }
   }
-  // }
   if (!iframe) {
     createiFrame();
   }

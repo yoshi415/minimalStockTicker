@@ -10,10 +10,10 @@ function createiFrame() {
     frame.setAttribute('width', '100%');
     // frame.style.width = '50%'
     frame.style.backgroundColor = 'white';
-    frame.style.height = '25px';
+    frame.style.height = '24px';
     frame.style.border = 'none';
     frame.style.position = 'absolute';
-    frame.style.top = '0px';
+    frame.style.top = '-2.5px';
     frame.style.left = '0px';
     frame.style.marginTop = '0px';
     frame.style.marginBottom = '0px';
@@ -26,9 +26,7 @@ function createiFrame() {
 }
 
 function removeiFrame() {
-  console.log('running')
   const iframe = getiFrame();
-  console.log('iframe', iframe)
   iframe.remove();
   document.body.style['transform'] = 'translateY(0px)';
 }
