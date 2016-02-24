@@ -7,12 +7,19 @@ const message = document.getElementById('inputText');
 document.getElementById('symbolBtn').addEventListener('click', addSymbol);
 document.getElementById('symbolValue').addEventListener('keypress', returnSubmit);
 document.getElementById('blacklist').addEventListener('click', blacklist);
+document.getElementById('colorToggle').addEventListener('click', toggleColor);
 
 chrome.storage.sync.get([ 'symbols', 'blacklisted' ], (storage) => {
   symbols = storage.symbols || [];
   blacklisted = storage.blacklisted || [];
   displaySymbols();
 });
+
+function toggleColor() {
+  chrome.storage.sync.get('toggleColor', (storage) => {
+    chrome.storage.sync.set({ toggleColor: !storage.toggleColor });
+  })
+}
 
 function blacklist() {
   chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => { 
@@ -81,7 +88,6 @@ function displaySymbols() {
 }
 
 function removeSymbol(symbol) {
-  console.log('running')
   chrome.storage.sync.get('symbols', (storage) => {
     symbols = storage.symbols;
     let remove;
@@ -90,8 +96,7 @@ function removeSymbol(symbol) {
         remove = index;
       }
     });
-    let x = symbols.splice(remove, 1);
-    console.log(x)
+    symbols.splice(remove, 1);
     chrome.storage.sync.set({ symbols });
     message.innerHTML = `${symbol} has been removed.`;
     displaySymbols();

@@ -7,23 +7,28 @@
 </head>
 <body>
   <div id='container'>
-    <div id='message'>
-      <p id='inputText'>Enter a symbol to add</p>
+    <div class='centered'>
+      <div id='message'>
+        <p id='inputText'>Enter a symbol to add</p>
+      </div>
+      <form>
+        <input type='text' id='symbolValue' autocomplete='off' autofocus='true' />
+        <button type='button' id='symbolBtn'>Add</button>
+      </form>
     </div>
-    <form>
-      <input type='text' id='symbolValue' autocomplete='off'/>
-      <button type='button' id='symbolBtn'>Add</button>
-    </form>
+
+    <div id='separator'></div>
+    
+    <div class='centered'>
+      <button type='button' id='blacklist'>Blacklist page</button>
+      <button type='button' id='colorToggle'>Toggle Colors</button>
+    </div>
+
+    <div id='separator'></div>
+
+    <p id='directions'>Click to remove symbol</p>
+    <div id='displaySymbols'></div>
   </div>
-
-  <div id='separator'></div>
-
-  <p id='directions'>Click to remove symbol</p>
-  <div id='displaySymbols'></div>
-
-  <div id='separator'></div>
-
-  <button type='button' id='blacklist'>Blacklist page</button>
   
   <script src='js/popup.min.js'></script>
 </body>

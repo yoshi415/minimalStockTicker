@@ -22,20 +22,18 @@ chrome.storage.onChanged.addListener((changed) => {
   }
 });
 
-chrome.runtime.onMessage.addListener(
-  (request, sender, sendResponse) => {
-    if (request.remove === true) {
-      removeiFrame();
-    }
-  });
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.remove === true) {
+    removeiFrame();
+  }
+});
 
 function removeiFramea() {
   let iframe = document.getElementById('minimalStockTicker')
   iframe.remove();
-  document.body.style['transform'] = 'translateY(0px)';
+  document.body.style.transform = 'translateY(0px)';
 }
 
 function checkBlacklist(list) {
-  console.log(window.location.href)
   return list.indexOf(window.location.href) === -1;
 }
