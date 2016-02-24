@@ -29,13 +29,13 @@ function getTime(fields){
   const day = date.toString().replace(/\S+\s(\S+)\s(\d+)\s.*/,'$1 $2');
   let hour = date.getHours();
   let minute = date.getMinutes();
-  minute = minute !== 0 ? minute : '00';
   let moa = 'AM';
+  minute = minute !== 0 ? minute : '00';
   if (hour > 12) {
     hour = hour - 12;
     moa = 'PM';
   }
-  return `<span id=time>Last update at ${hour}:${minute}${moa} on ${day}</span>`
+  return `<span id=time>Last update at ${hour}:${minute}${moa} on ${day}</span>`;
 }
 
 function appendHTML(html) {
