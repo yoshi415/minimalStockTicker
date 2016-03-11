@@ -22,5 +22,5 @@ function checkURL(tabId, info, tab) {
       disabled = true;
     }
   });
-  chrome.storage.sync.set({ disabled:disabled });
+  chrome.storage.sync.set({ disabled });
 }
