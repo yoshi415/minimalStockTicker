@@ -62,6 +62,9 @@ function removeSymbol(symbol) {
     });
     symbols.splice(remove, 1);
     chrome.storage.sync.set({ symbols });
+    if (symbols.length === 0) {
+      chrome.storage.sync.set({ stocks: [] });
+    }
     message.innerHTML = `${symbol} has been removed.`;
     displaySymbols(symbols);
   });

@@ -16,10 +16,15 @@ chrome.storage.sync.get([ 'stocks', 'toggleColor' ],(storage) => {
 chrome.storage.onChanged.addListener((changed) => {
   if (changed.stocks) {
     stocks = changed.stocks.newValue;
-    displayStocks(stocks, toggleColor);
+    if (stocks.length !== 0) {
+      displayStocks(stocks, toggleColor);
+    }
   }
   if (changed.symbols) {
-    updateQuotes(changed.symbols.newValue, toggleColor);
+    let symbols = changed.symbols.newValue;
+    if (symbols.length !== 0) {
+      updateQuotes(symbols, toggleColor);
+    }
   }
   if (changed.toggleColor) {
     displayStocks(stocks, changed.toggleColor.newValue);

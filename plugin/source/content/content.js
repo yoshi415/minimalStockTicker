@@ -14,13 +14,13 @@ chrome.storage.sync.get(['stocks', 'blacklisted', 'disabled'], (storage) => {
 
 chrome.storage.onChanged.addListener((changed) => {
   const iframe = getiFrame();
-  if (changed.symbols) {
-    if (!changed.symbols.newValue.length) {
-      removeiFramea();
-    }
-  }
   if (!iframe && checkBlacklist(blacklisted) && !disabled) {
     createiFrame();
+  }
+  if (changed.symbols) {
+    if (changed.symbols.newValue.length === 0) {
+      removeiFrame();
+    }
   }
 });
 
@@ -29,12 +29,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     removeiFrame();
   }
 });
-
-function removeiFramea() {
-  let iframe = document.getElementById('minimalStockTicker')
-  iframe.remove();
-  document.body.style.transform = 'translateY(0px)';
-}
 
 function checkBlacklist(list) {
   return list.indexOf(window.location.host) === -1;
