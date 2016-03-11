@@ -4,7 +4,8 @@ const blacklisted = [
   "google",
   "facebook",
   "8tracks",
-  "pivotaltracker/signin"
+  "pivotaltracker.com/signin",
+  "linkedin"
 ];
 
 chrome.alarms.create('update', {  periodInMinutes: 1 });
