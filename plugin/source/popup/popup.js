@@ -8,12 +8,15 @@ document.getElementById('symbolValue').addEventListener('keypress', returnSubmit
 document.getElementById('blacklist').addEventListener('click', blacklist);
 document.getElementById('colorToggle').addEventListener('click', toggleColor);
 
-chrome.storage.sync.get([ 'symbols', 'blacklisted' ], (storage) => {
+chrome.storage.sync.get([ 'symbols', 'blacklisted', 'disabled' ], (storage) => {
   symbols = storage.symbols || [];
   blacklisted = storage.blacklisted || blacklistedSites;
   disabled = storage.disabled;
   displaySymbols(symbols);
   document.getElementById('symbolBtn').addEventListener('click', addSymbol.bind(this, symbols));
+  if (storage.disabled) {
+    document.getElementById('disabled').style.display = 'block';
+  }
 });
 
 function toggleColor() {
