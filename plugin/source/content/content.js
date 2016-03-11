@@ -10,6 +10,9 @@ chrome.storage.sync.get(['stocks', 'blacklisted', 'disabled'], (storage) => {
   if (storage.stocks && checkBlacklist(blacklisted) && !disabled) {
     createiFrame();
   }
+  if (disabled) {
+    document.getElementById('disabled').style.display = 'block';
+  }
 });
 
 chrome.storage.onChanged.addListener((changed) => {
@@ -37,5 +40,5 @@ function removeiFramea() {
 }
 
 function checkBlacklist(list) {
-  return list.indexOf(window.location.href) === -1;
+  return list.indexOf(window.location.host) === -1;
 }

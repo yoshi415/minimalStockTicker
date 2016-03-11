@@ -30,23 +30,7 @@ form {
   margin: 8px auto 4px auto;
 }
 
-/*.chk
-{
-  display:inline-block;
-  width:13px;
-  height:13px;
-  border-radius: 3px;
-  padding:2px;
-  border:1px #ccc solid;
-  cursor:pointer;
+#disabled {
+  display: none;
+  color: red;
 }
-.chk[checked]{
-    background:url(http://png-2.findicons.com/files/icons/1583/silk_companion_1/16/bullet_tick.png);
-}
-.chk[unchecked]{
-    background:url(http://png-2.findicons.com/files/icons/1583/silk_companion_1/16/bullet_tick.png);
-}
-input[type=checkbox]
-{
-    display:none;
-}*/

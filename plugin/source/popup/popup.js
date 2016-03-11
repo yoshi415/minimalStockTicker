@@ -1,7 +1,7 @@
 import { addSymbol, displaySymbols } from './helpers/symbols';
 import blacklistedSites from '../util/blacklistedSites';
 
-let symbols, blacklisted;
+let symbols, blacklisted, disabled;
 const message = document.getElementById('inputText');
 
 document.getElementById('symbolValue').addEventListener('keypress', returnSubmit);
@@ -11,6 +11,7 @@ document.getElementById('colorToggle').addEventListener('click', toggleColor);
 chrome.storage.sync.get([ 'symbols', 'blacklisted' ], (storage) => {
   symbols = storage.symbols || [];
   blacklisted = storage.blacklisted || blacklistedSites;
+  disabled = storage.disabled;
   displaySymbols(symbols);
   document.getElementById('symbolBtn').addEventListener('click', addSymbol.bind(this, symbols));
 });
