@@ -2,7 +2,6 @@ import fetchQuote from '../../util/fetch';
 import updateSymbols from '../../util/update';
 
 function addSymbol(symbols) {
-  console.log("add", symbols)
   const textField = document.getElementById('symbolValue');
   const toAdd = [textField.value];
 

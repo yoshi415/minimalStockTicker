@@ -13,7 +13,7 @@ const iframeStyles = {
 
 const bodyStyles = {
   position: 'relative',
-  transform: 'translateY(25px)'
+  webkitTransform: 'translateY(25px)'
 };
 
 export { iframeStyles, bodyStyles }

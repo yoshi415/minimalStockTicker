@@ -1,11 +1,13 @@
 import 'babel-polyfill';
 import { createiFrame, removeiFrame, getiFrame } from './helpers/iframe';
+import blacklistedSites from '../util/blacklistedSites';
 
-let blacklisted;
+let blacklisted, disabled;
 
-chrome.storage.sync.get(['stocks', 'blacklisted'], (storage) => {
-  blacklisted = storage.blacklisted || [];
-  if (storage.stocks && checkBlacklist(blacklisted)) {
+chrome.storage.sync.get(['stocks', 'blacklisted', 'disabled'], (storage) => {
+  blacklisted = storage.blacklisted || blacklistedSites;
+  disabled = storage.disabled;
+  if (storage.stocks && checkBlacklist(blacklisted) && !disabled) {
     createiFrame();
   }
 });
@@ -17,7 +19,7 @@ chrome.storage.onChanged.addListener((changed) => {
       removeiFramea();
     }
   }
-  if (!iframe && checkBlacklist(blacklisted)) {
+  if (!iframe && checkBlacklist(blacklisted) && !disabled) {
     createiFrame();
   }
 });
