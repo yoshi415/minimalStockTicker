@@ -1,11 +1,10 @@
 import 'babel-polyfill';
 import { createiFrame, removeiFrame, getiFrame } from './helpers/iframe';
-import blacklistedSites from '../util/blacklistedSites';
 
 let blacklisted, disabled;
 
 chrome.storage.sync.get(['stocks', 'blacklisted', 'disabled'], (storage) => {
-  blacklisted = storage.blacklisted || blacklistedSites;
+  blacklisted = storage.blacklisted || [];
   disabled = storage.disabled;
   if (storage.stocks && checkBlacklist(blacklisted) && !disabled) {
     createiFrame();
@@ -31,5 +30,5 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 function checkBlacklist(list) {
-  return list.indexOf(window.location.host) === -1;
+  return list.indexOf(window.location.href) === -1;
 }
