@@ -1,7 +1,7 @@
 import fetchQuotes from './fetch';
 
 export default () => {
-  chrome.storage.sync.get('symbols', (storage) => {
+  chrome.storage.sync.get('symbols', (storage={symbols:[]}) => {
     let toUpdate = [];
     storage.symbols.forEach((stock) => {
       toUpdate.push(stock[0]);
