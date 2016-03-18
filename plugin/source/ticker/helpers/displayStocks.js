@@ -19,7 +19,7 @@ function createSpan(stock, index, last, toggleColor) {
   }
 
   let span = `<span class="stockFont"> ${symbol} ${price} <span class="`;
-  if (toggleColor) {
+  if (!toggleColor) {
     span += chg[0] !== '(' ? 'positive' : 'negative';
   }
   span += `">${chg}</span>`

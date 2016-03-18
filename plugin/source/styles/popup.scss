@@ -11,6 +11,13 @@ form {
   text-align: center;
 }
 
+.separator {
+  height: 1px;
+  background: #717171;
+  border-bottom: 1px solid #313030;
+  margin: 8px auto 4px auto;
+}
+
 #container {
   width: 200px;
 }
@@ -21,16 +28,4 @@ form {
 
 #message {
   height: 35px;
-}
-
-#separator {
-  height: 1px;
-  background: #717171;
-  border-bottom: 1px solid #313030;
-  margin: 8px auto 4px auto;
-}
-
-#disabled {
-  /*display: none;*/
-  color: red;
 }

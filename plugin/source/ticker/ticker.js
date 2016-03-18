@@ -6,7 +6,7 @@ let stocks;
 
 chrome.storage.sync.get([ 'stocks', 'toggleColor' ],(storage) => {
   if (storage.toggleColor === undefined) {
-    toggleColor = true;
+    toggleColor = false;
   }
   toggleColor = storage.toggleColor ? true : false;
   stocks = storage.stocks;

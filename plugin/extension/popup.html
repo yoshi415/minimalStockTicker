@@ -17,18 +17,21 @@
       </form>
     </div>
 
-    <div id='separator'></div>
+    <div class='separator'></div>
     
     <div class='centered'>
       <button type='button' id='blacklist'>Blacklist page</button>
       <button type='button' id='colorToggle'>Toggle Colors</button>
     </div>
 
-    <div id='separator'></div>
+    <div class='separator'></div>
 
     <p id='directions'>Click to remove symbol</p>
     <div id='displaySymbols'></div>
   </div>
+
+  <!-- This is here, so popup doesn't throw an error when getting non existent id's -->
+  <div id='unblacklist'></div>
   
   <script src='js/popup.min.js'></script>
 </body>

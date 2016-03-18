@@ -32,13 +32,14 @@ function displaySymbols(symbols) {
   const list = [];
   let html = '';
 
-  symbols.forEach((symbol) => {
-    html += `<input type='checkbox' id='${symbol[0]}'>(${symbol[0]})  ${symbol[1]}</input><br />`;  
-  });
-
-  display.innerHTML = '';
-  display.innerHTML = html;
-  attachHandlers(symbols);
+  if (display) {
+    symbols.forEach((symbol) => {
+      html += `<input type='checkbox' id='${symbol[0]}'>(${symbol[0]})  ${symbol[1]}</input><br />`;  
+    });
+    display.innerHTML = '';
+    display.innerHTML = html;
+    attachHandlers(symbols);
+  }
 }
 
 function symbolNotFound(collection, target) {

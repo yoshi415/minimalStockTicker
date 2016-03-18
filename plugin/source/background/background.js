@@ -1,58 +1,40 @@
 import updateQuotes from '../util/update';
-
-const blacklisted = [
-  "google.com/maps",
-  "docs.google.com",
-  "mail.google.com",
-  "facebook",
-  "8tracks",
-  "pivotaltracker.com/signin",
-  "linkedin"
-];
+import { checkDisabledOnUpdated, 
+         checkDisabledOnActivated, 
+         checkBlackListOnUpdated, 
+         checkBlackListOnActivated 
+       } from './helpers/disable';
 
 chrome.alarms.create('update', {  periodInMinutes: 1 });
 chrome.alarms.onAlarm.addListener((alarm) => {
   updateQuotes();
 });
 
-chrome.tabs.onUpdated.addListener(checkURL);
-chrome.tabs.onActivated.addListener(checkCurrTab);
+chrome.tabs.onUpdated.addListener((tabId, info, tab) => {
+  checkDisabledOnUpdated(tab);
+  checkBlackListOnUpdated(tab);
+});
+chrome.tabs.onActivated.addListener(() => {
+  checkDisabledOnActivated();
+  checkBlackListOnActivated();
+});
 
-function checkURL(tabId, info, tab) {
-  let disabled = checkList(tab);
-  chrome.storage.sync.set({ disabled });
-  if (disabled) {
-    disable(tab.id);
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.disable) {
+    checkBlackListOnActivated();
   }
-}
+});
 
-function checkCurrTab(activeTab) {
-  chrome.tabs.query({ active: true, currentWindow: true }, (tab) => {
-    const hideMessage = checkList(tab[0]);
-    if (hideMessage) {
-      disable(tab[0].id);
-    }
+chrome.runtime.onConnect.addListener((port) => {
+  port.onDisconnect.addListener(() => {
+    chrome.storage.sync.get('symbols', (storage) => {
+      if (storage.symbols && !storage.symbols.length) {
+        chrome.tabs.query({}, (tabs) => {
+          tabs.forEach((tab) => {
+            chrome.tabs.sendMessage(tab.id, { remove: true });
+          });
+        });
+      }
+    });
   });
-}
-
-function checkList(tab) {
-  let inList = false;
-  blacklisted.forEach((text) => {
-    if (~tab.url.indexOf(text)) {
-      inList = true;
-    }
-  });
-  console.log(inList)
-  return inList;
-}
-
-function disable(id) {
-  chrome.browserAction.setPopup({
-    popup: "disabled.html",
-    tabId: id
-  });
-  chrome.browserAction.setIcon({
-    path: { 19: "assets/images/tickerDisabled48.png" },
-    tabId: id
-  });
-}
+});
