@@ -34,9 +34,7 @@ function displaySymbols(symbols) {
 
   if (display) {
     symbols.forEach((symbol) => {
-      html += `<img src='assets/images/x.png' id='${symbol[0]}' class='cursor' /> (${symbol[0]})  ${symbol[1]}<br />`;
-      // html += `<input type='checkbox' id='${symbol[0]}'>(${symbol[0]})  ${symbol[1]}</input><br />`;  
-      // html += `<input type='checkbox' id='${symbol[0]}'>(${symbol[0]})  ${symbol[1]}</input><br />`;  
+      html += `<img src='assets/images/x.png' id='${symbol[0]}' class='cursor' /> <span class='symbol'>(${symbol[0]})  ${symbol[1]}</span><br />`;
     });
     display.innerHTML = '';
     display.innerHTML = html;
@@ -79,4 +77,4 @@ function attachHandlers(symbols) {
   });
 }
 
-export { addSymbol, displaySymbols }
+export { addSymbol, displaySymbols };

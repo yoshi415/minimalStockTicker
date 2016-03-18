@@ -21,7 +21,6 @@ function createiFrame() {
 function removeiFrame() {
   const iframe = getiFrame();
   iframe.remove();
-  // document.body.style.transform = 'translateY(0px)';
   document.body.style.marginTop = '0px';
 }
 
@@ -29,4 +28,4 @@ function getiFrame() {
   return document.getElementById('minimalStockTicker');
 }
 
-export { createiFrame, removeiFrame, getiFrame }
+export { createiFrame, removeiFrame, getiFrame };

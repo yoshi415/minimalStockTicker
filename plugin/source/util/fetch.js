@@ -13,4 +13,4 @@ export default async (symbols) => {
       console.log(`Error fetching ${symbol}`, error);
     }
   }
-}
+};

@@ -16,4 +16,4 @@ const bodyStyles = {
   marginTop: '25px'
 };
 
-export { iframeStyles, bodyStyles }
+export { iframeStyles, bodyStyles };
