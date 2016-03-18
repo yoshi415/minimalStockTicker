@@ -1,7 +1,9 @@
 import updateQuotes from '../util/update';
 
 const blacklisted = [
-  "google",
+  "google.com/maps",
+  "docs.google.com",
+  "mail.google.com",
   "facebook",
   "8tracks",
   "pivotaltracker.com/signin",
@@ -40,6 +42,7 @@ function checkList(tab) {
       inList = true;
     }
   });
+  console.log(inList)
   return inList;
 }
 

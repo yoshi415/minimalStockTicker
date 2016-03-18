@@ -18,6 +18,7 @@ chrome.storage.onChanged.addListener((changed) => {
   }
   if (changed.symbols) {
     if (changed.symbols.newValue.length === 0) {
+      console.log('blah')
       removeiFrame();
     }
   }
