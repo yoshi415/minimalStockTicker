@@ -13,7 +13,7 @@ const iframeStyles = {
 
 const bodyStyles = {
   position: 'relative',
-  webkitTransform: 'translateY(25px)'
+  marginTop: '25px'
 };
 
 export { iframeStyles, bodyStyles }

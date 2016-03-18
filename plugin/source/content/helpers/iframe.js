@@ -21,7 +21,8 @@ function createiFrame() {
 function removeiFrame() {
   const iframe = getiFrame();
   iframe.remove();
-  document.body.style.transform = 'translateY(0px)';
+  // document.body.style.transform = 'translateY(0px)';
+  document.body.style.marginTop = '0px';
 }
 
 function getiFrame() {
