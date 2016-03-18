@@ -12,13 +12,17 @@ function createSpan(stock, index, last, toggleColor) {
   const fields = stock.resource.fields;
   const symbol = `<a class="stockLink" target="_blank" href="http://finance.yahoo.com/q?s=${fields.symbol}">${fields.symbol}</a>`;
   const price = Number(fields.price).toFixed(2);
-  const chg = Number(fields.chg_percent).toFixed(2);
+  let chg = Number(fields.chg_percent).toFixed(2);
+  chg += '%';
+  if (chg[0] === '-' ) {
+    chg = '(' + chg.slice(1) + ')';
+  }
 
   let span = `<span class="stockFont"> ${symbol} ${price} <span class="`;
   if (toggleColor) {
-    span += chg[0] !== '-' ? 'positive' : 'negative';
+    span += chg[0] !== '(' ? 'positive' : 'negative';
   }
-  span += `">${chg}%</span>`
+  span += `">${chg}</span>`
   span += index !== last ? ' |' : getTime(fields);
   span += '  </span>';
   return span;

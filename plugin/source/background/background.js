@@ -19,7 +19,6 @@ chrome.tabs.onActivated.addListener(checkCurrTab);
 function checkURL(tabId, info, tab) {
   let disabled = checkList(tab);
   chrome.storage.sync.set({ disabled });
-  
   if (disabled) {
     disable(tab.id);
   }
@@ -50,9 +49,7 @@ function disable(id) {
     tabId: id
   });
   chrome.browserAction.setIcon({
-    path: {
-      19: "assets/images/tickerDisabled48.png"
-    },
+    path: { 19: "assets/images/tickerDisabled48.png" },
     tabId: id
   });
 }
