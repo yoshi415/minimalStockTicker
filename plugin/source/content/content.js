@@ -30,5 +30,5 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 function checkBlacklist(list) {
-  return list.indexOf(window.location.href) === -1;
+  return list.indexOf(window.location.host) === -1;
 }
