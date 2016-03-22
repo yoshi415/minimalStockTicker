@@ -35,7 +35,7 @@ function getTime(fields){
   let minute = date.getMinutes();
   let moa = 'AM';
   minute = minute > 10 ? minute : '0' + minute;
-  if (hour > 12) {
+  if (hour >= 12) {
     hour -= 12;
     moa = 'PM';
   }
