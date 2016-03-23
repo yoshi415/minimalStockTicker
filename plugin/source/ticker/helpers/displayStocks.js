@@ -39,6 +39,7 @@ function getTime(fields){
     hour -= 12;
     moa = 'PM';
   }
+  hour = hour === 0 ? 12 : hour;
   return `<span id=time>Last update at ${hour}:${minute}${moa} on ${day}</span>`;
 }
 
