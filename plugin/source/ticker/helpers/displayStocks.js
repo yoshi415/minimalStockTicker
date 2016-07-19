@@ -1,7 +1,7 @@
 export default (stocks, toggleColor) => {
   let html = '';
   const last = stocks.length - 1;
-
+  
   stocks.forEach((stock, index) => {
     html += createSpan(stock, index, last, toggleColor);
   })
@@ -9,6 +9,7 @@ export default (stocks, toggleColor) => {
 }
 
 function createSpan(stock, index, last, toggleColor) {
+  console.log('stock', stock)
   const fields = stock.resource.fields;
   const symbol = `<a class="stockLink" target="_blank" href="http://finance.yahoo.com/q?s=${fields.symbol}">${fields.symbol}</a>`;
   const price = Number(fields.price).toFixed(2);

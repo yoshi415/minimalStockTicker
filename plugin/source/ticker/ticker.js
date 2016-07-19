@@ -4,7 +4,7 @@ import updateQuotes from '../util/update';
 let toggleColor;
 let stocks;
 
-chrome.storage.sync.get([ 'stocks', 'toggleColor' ],(storage) => {
+chrome.storage.sync.get([ 'stocks', 'toggleColor' ], (storage) => {
   if (storage.toggleColor === undefined) {
     toggleColor = false;
   }

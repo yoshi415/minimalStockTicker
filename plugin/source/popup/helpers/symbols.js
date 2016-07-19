@@ -6,11 +6,11 @@ function addSymbol(symbols, disabled) {
   const toAdd = [textField.value];
 
   if (toAdd) {
-    fetchQuote(toAdd).then((quote) => {
+    fetchQuote(toAdd).then(quote => {
       if (quote.length > 0) {
-        const data = quote[0].resource.fields;
-        const symbol = data.symbol.toUpperCase();
-        const stock = [ symbol, data.name ]
+        const data = quote.split(',');
+        const symbol = textField.value.toUpperCase();
+        const stock = [ symbol, ...data ];
         textField.value = '';
 
         if (symbolNotFound(symbols, symbol)) {
