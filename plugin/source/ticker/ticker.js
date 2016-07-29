@@ -4,7 +4,7 @@ import updateQuotes from '../util/update';
 let toggleColor;
 let stocks;
 
-chrome.storage.sync.get([ 'stocks', 'toggleColor' ], (storage) => {
+chrome.storage.sync.get([ 'stocks', 'toggleColor' ], storage => {
   if (storage.toggleColor === undefined) {
     toggleColor = false;
   }
@@ -13,7 +13,7 @@ chrome.storage.sync.get([ 'stocks', 'toggleColor' ], (storage) => {
   displayStocks(stocks, toggleColor);
 });
 
-chrome.storage.onChanged.addListener((changed) => {
+chrome.storage.onChanged.addListener(changed => {
   if (changed.stocks) {
     stocks = changed.stocks.newValue;
     if (stocks.length !== 0) {
@@ -22,6 +22,7 @@ chrome.storage.onChanged.addListener((changed) => {
   }
   if (changed.symbols) {
     let symbols = changed.symbols.newValue;
+    console.log('symbols', symbols)
     if (symbols.length !== 0) {
       updateQuotes(symbols, toggleColor);
     }

@@ -1,9 +1,9 @@
 import 'babel-polyfill';
 
-export default async (symbols) => {
+export default async symbols => {
   if (symbols.length > 0) {
     const symbol = symbols.length === 1 ? symbols[0] : symbols.join(',');
-    const url = `http://download.finance.yahoo.com/d/quotes.csv?s=${symbol}&f=ac1`
+    const url = `http://download.finance.yahoo.com/d/quotes.csv?s=${symbol}&f=ap2`;
 
     try {
       const response = await fetch(url);

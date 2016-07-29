@@ -5,6 +5,7 @@ export default () => {
     let toUpdate = [];
     if (storage.symbols) {
       storage.symbols.forEach(stock => toUpdate.push(stock[0]));
+      console.log('update', toUpdate)
       fetchQuotes(toUpdate).then(stocks => chrome.storage.sync.set({ stocks }));
     }
   }); 

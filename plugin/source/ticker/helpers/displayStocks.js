@@ -1,9 +1,9 @@
 export default (stocks, toggleColor) => {
   let html = '';
   const last = stocks.length - 1;
-  
+
+    html += createSpan(stocks, index, last, toggleColor);
   stocks.forEach((stock, index) => {
-    html += createSpan(stock, index, last, toggleColor);
   })
   appendHTML(html);
 }
