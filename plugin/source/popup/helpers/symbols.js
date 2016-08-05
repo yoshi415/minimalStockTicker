@@ -14,7 +14,9 @@ function addSymbol(symbols, disabled) {
           return;
         }
         const symbol = textField.value.toUpperCase();
-        const stock = [ symbol, ...data ];
+        const price = data[0];
+        const percent = data[1].slice(1, data[1].length - 2);
+        const stock = [symbol, price, percent];
         textField.value = '';
 
         if (symbolNotFound(symbols, symbol)) {
@@ -55,7 +57,7 @@ function symbolNotFound(collection, target) {
 }
 
 function removeSymbol(symbol) {
-  chrome.storage.sync.get('symbols', (storage) => {
+  chrome.storage.sync.get('symbols', storage => {
     let symbols = storage.symbols;
     let remove;
     symbols.forEach((stock, index) => {
@@ -74,7 +76,7 @@ function removeSymbol(symbol) {
 }
 
 function attachHandlers(symbols) {
-  symbols.forEach((symbol) => {
+  symbols.forEach(symbol => {
     document.getElementById(symbol[0]).addEventListener('click', removeSymbol.bind(this, symbol[0]));
   });
 }
