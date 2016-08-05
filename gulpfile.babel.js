@@ -15,11 +15,11 @@ import * as yargs from 'yargs';
 const paths = {
   in: {
     js: './plugin/source/',
-    css: './plugin/source/styles/'
+    // css: './plugin/source/styles/'
   },
   out: {
     js: './plugin/extension/js/',
-    css: './plugin/extension/assets/styles/'
+    // css: './plugin/extension/assets/styles/'
   }
 };
 
@@ -60,20 +60,20 @@ gulp.task('buildticker', () => {
   build('ticker')
 });
 
-gulp.task('buildCss', () => {
-  cleanDirectory('css');
-  return gulp.src(paths.in.css + '**/*.scss')
-           .pipe(scss())
-           .pipe(cssnano())
-           .pipe(gulp.dest(paths.out.css));
-});
+// gulp.task('buildCss', () => {
+//   cleanDirectory('css');
+//   return gulp.src(paths.in.css + '**/*.scss')
+//            .pipe(scss())
+//            .pipe(cssnano())
+//            .pipe(gulp.dest(paths.out.css));
+// });
 
 gulp.task('build', [
   'buildBackground', 
   'buildContent',
   'buildPopup',
   'buildticker',
-  'buildCss'
+  // 'buildCss'
 ]);
 
 gulp.task('watch', () => {
@@ -81,7 +81,7 @@ gulp.task('watch', () => {
   gulp.watch('plugin/source/content/**/*.js', [ 'buildContent' ]);
   gulp.watch('plugin/source/popup/**/*.js', [ 'buildPopup' ]);
   gulp.watch('plugin/source/ticker/**/*', [ 'buildticker' ]);
-  gulp.watch('plugin/source/styles/**/*', [ 'buildCss' ]);
+  // gulp.watch('plugin/source/styles/**/*', [ 'buildCss' ]);
   gulp.watch('plugin/source/util/**/*.js', [ 'build' ]);
 });
 

@@ -9,6 +9,10 @@ function addSymbol(symbols, disabled) {
     fetchQuote(toAdd).then(quote => {
       if (quote.length > 0) {
         const data = quote.split(',');
+        if (data[0] === "N/A") {
+          message.innerHTML = 'Symbol could not be looked up! Try again';
+          return;
+        }
         const symbol = textField.value.toUpperCase();
         const stock = [ symbol, ...data ];
         textField.value = '';
@@ -20,9 +24,7 @@ function addSymbol(symbols, disabled) {
           displaySymbols(symbols);
           updateSymbols();
         }
-      } else {
-        message.innerHTML = 'Symbol could not be looked up! Try again';
-      }
+      } 
     });
   }
 }
@@ -34,7 +36,7 @@ function displaySymbols(symbols) {
 
   if (display) {
     symbols.forEach((symbol) => {
-      html += `<img src='assets/images/x.png' id='${symbol[0]}' class='cursor' /> <span class='symbol'>(${symbol[0]})  ${symbol[1]}</span><br />`;
+      html += `<img src='assets/images/x.png' id='${symbol[0]}' class='cursor' /> <span class='symbol'>(${symbol[0]})</span><br />`;
     });
     display.innerHTML = '';
     display.innerHTML = html;

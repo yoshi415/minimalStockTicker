@@ -1,47 +1,32 @@
-export default (stocks, toggleColor) => {
+export default (stocks, toggleColor, symbols) => {
   let html = '';
-  const last = stocks.length - 1;
-  
-  stocks.forEach((stock, index) => {
-    html += createSpan(stock, index, last, toggleColor);
-  })
-  appendHTML(html);
-}
-
-function createSpan(stock, index, last, toggleColor) {
-  console.log('stock', stock)
-  const fields = stock.resource.fields;
-  const symbol = `<a class="stockLink" target="_blank" href="http://finance.yahoo.com/q?s=${fields.symbol}">${fields.symbol}</a>`;
-  const price = Number(fields.price).toFixed(2);
-  let chg = Number(fields.chg_percent).toFixed(2);
-  chg += '%';
-  if (chg[0] === '-' ) {
-    chg = '(' + chg.slice(1) + ')';
+  if (symbols) {
+    const last = symbols.length - 1;
+    symbols.forEach((symbol, index) => html += createSpan(symbol, index, last, toggleColor))
   }
 
-  let span = `<span class="stockFont"> ${symbol} ${price} <span class="`;
+  if (html.length > 0) {
+    appendHTML(html);
+  }
+}
+
+function createSpan(symbol, index, last, toggleColor) {
+  const [displaySymbol, price, change, date, time] = symbol;
+  console.log('price', price);
+  let chg = change.slice(1, change.length -1);
+  if (chg[0] === '-') {
+    chg = '(' + chg.slice(1) + ')';
+  }
+  const link = `<a class="stockLink" target="_blank" href="http://finance.yahoo.com/q?s=${displaySymbol}">${displaySymbol}</a>`;
+
+  let span = `<span class="stockFont"> ${link} ${price} <span class="`;
   if (!toggleColor) {
     span += chg[0] !== '(' ? 'positive' : 'negative';
   }
-  span += `">${chg}</span>`
-  span += index !== last ? ' |' : getTime(fields);
+  span += `">${chg}</span>`;
+  span += index !== last ? ' |' : `<span id=time>Last update at ${time.slice(1, time.length - 2)} on ${date.slice(1, date.length - 1)}</span>`;
   span += '  </span>';
   return span;
-}
-
-function getTime(fields){
-  const date = new Date(fields.utctime);
-  const day = date.toString().replace(/\S+\s(\S+)\s(\d+)\s.*/,'$1 $2');
-  let hour = date.getHours();
-  let minute = date.getMinutes();
-  let moa = 'AM';
-  minute = minute > 10 ? minute : '0' + minute;
-  if (hour >= 12) {
-    hour -= 12;
-    moa = 'PM';
-  }
-  hour = hour === 0 ? 12 : hour;
-  return `<span id=time>Last update at ${hour}:${minute}${moa} on ${day}</span>`;
 }
 
 function appendHTML(html) {
