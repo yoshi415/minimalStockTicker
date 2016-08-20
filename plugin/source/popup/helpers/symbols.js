@@ -7,22 +7,9 @@ function addSymbol(symbols, disabled) {
 
   if (toAdd) {
     fetchQuote(toAdd).then(quote => {
-<<<<<<< HEAD
-      if (quote.length > 0) {
-        const data = quote.split(',');
-        if (data[0] === "N/A") {
-          message.innerHTML = 'Symbol could not be looked up! Try again';
-          return;
-        }
-        const symbol = textField.value.toUpperCase();
-        const price = data[0];
-        const percent = data[1].slice(1, data[1].length - 2);
-        const stock = [symbol, price, percent];
-=======
       if (quote[0][1] !== 'N/A') {
         const symbol = textField.value.toUpperCase();
         const stock = [ symbol, ...quote ];
->>>>>>> grr
         textField.value = '';
 
         if (symbolNotFound(symbols, symbol)) {
@@ -32,14 +19,10 @@ function addSymbol(symbols, disabled) {
           displaySymbols(symbols);
           updateSymbols();
         }
-<<<<<<< HEAD
-      } 
-=======
       } else {
         message.innerHTML = 'Symbol could not be looked up! Try again';
         textField.value = '';
       }
->>>>>>> grr
     });
   }
 }
@@ -59,38 +42,33 @@ function displaySymbols(symbols) {
   }
 }
 
-function symbolNotFound(collection, target) {
-  let found = true;
-  collection.some((symbol) => {
-    if (symbol[0] === target) {
-      found = false;
-    }
-  });
-  return found;
+function symbolNotFound(currentSymbols, newSymbol) {
+  return !currentSymbols.some(symbol => symbol[0] === newSymbol);
 }
 
 function removeSymbol(symbol) {
-  chrome.storage.sync.get('symbols', storage => {
-    let symbols = storage.symbols;
-    let remove;
+  chrome.storage.sync.get('symbols', ({symbols}) => {
     symbols.forEach((stock, index) => {
       if (stock[0] === symbol) {
-        remove = index;
+        symbols.splice(index, 1);
       }
     });
-    symbols.splice(remove, 1);
+
     chrome.storage.sync.set({ symbols });
+
     if (symbols.length === 0) {
       chrome.storage.sync.set({ stocks: [] });
     }
+
     message.innerHTML = `${symbol} has been removed.`;
     displaySymbols(symbols);
   });
 }
 
 function attachHandlers(symbols) {
-  symbols.forEach(symbol => {
-    document.getElementById(symbol[0]).addEventListener('click', removeSymbol.bind(this, symbol[0]));
+  symbols.forEach((symbol) => {
+    const el = document.getElementById(symbol[0]);
+    el.addEventListener('click', removeSymbol.bind(this, symbol[0]));
   });
 }
 

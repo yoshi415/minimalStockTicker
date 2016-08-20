@@ -1,8 +1,8 @@
 import updateQuotes from '../util/update';
-import { checkDisabledOnUpdated, 
-         checkDisabledOnActivated, 
-         checkBlackListOnUpdated, 
-         checkBlackListOnActivated 
+import { checkDisabledOnUpdated,
+         checkDisabledOnActivated,
+         checkBlackListOnUpdated,
+         checkBlackListOnActivated
        } from './helpers/disable';
 
 chrome.alarms.create('update', {  periodInMinutes: 1 });

@@ -20,15 +20,16 @@ chrome.runtime.connect();
 function toggleColor() {
   chrome.storage.sync.get('toggleColor', (storage) => {
     chrome.storage.sync.set({ toggleColor: !storage.toggleColor });
-  })
+  });
 }
 
 function blacklist() {
-  chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => { 
+  chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => {
     const hostname = getHostname(tabs);
     blacklisted.push(hostname);
     chrome.storage.sync.set({ blacklisted });
   });
+
   chrome.runtime.sendMessage({ disable: true });
   removeiFrame();
   window.close();
@@ -36,7 +37,7 @@ function blacklist() {
 
 function unblacklist() {
   chrome.storage.sync.get('blacklisted', (storage) => {
-    chrome.tabs.query({ currentWindow: true, active: true }, (tab) => { 
+    chrome.tabs.query({ currentWindow: true, active: true }, (tab) => {
       blacklisted = storage.blacklisted;
       const index = blacklisted.indexOf(getHostname(tab));
       blacklisted.splice(index, 1);
