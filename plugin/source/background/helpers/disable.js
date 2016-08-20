@@ -11,6 +11,7 @@ const defaultDisabledSites = [
 function checkDisabledOnUpdated(tab) {
   const disabled = checkDisabledList(tab);
   chrome.storage.sync.set({ disabled });
+
   if (disabled) {
     disable(tab.id, 'disabled.html');
   }
@@ -19,6 +20,7 @@ function checkDisabledOnUpdated(tab) {
 function checkDisabledOnActivated() {
   chrome.tabs.query({ active: true, currentWindow: true}, (tab) => {
     const disabledPage = checkDisabledList(tab[0]);
+
     if (disabledPage) {
       disable(tab[0].id, 'disabled.html');
     }
@@ -27,6 +29,7 @@ function checkDisabledOnActivated() {
 
 function checkDisabledList(tab) {
   let inList = false;
+
   defaultDisabledSites.forEach((text) => {
     if (~tab.url.indexOf(text)) {
       inList = true;
