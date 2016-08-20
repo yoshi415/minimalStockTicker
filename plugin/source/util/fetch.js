@@ -8,9 +8,18 @@ export default async symbols => {
     try {
       const response = await fetch(url);
       const data = await response.text();
-      return data;
+      const quotes = data.split('\n');
+      quotes.pop();
+      return quotes.map(parseData(symbols));
     } catch (error) {
       console.log(`Error fetching ${symbol}`, error);
     }
   }
 };
+
+function parseData(symbols) {
+  return (data, index) => {
+    const [price, percent, date, time] = data.split(',');
+    return [symbols[index].toUpperCase(), price, percent, date, time];
+  }
+}

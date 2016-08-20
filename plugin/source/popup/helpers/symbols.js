@@ -7,6 +7,7 @@ function addSymbol(symbols, disabled) {
 
   if (toAdd) {
     fetchQuote(toAdd).then(quote => {
+<<<<<<< HEAD
       if (quote.length > 0) {
         const data = quote.split(',');
         if (data[0] === "N/A") {
@@ -17,6 +18,11 @@ function addSymbol(symbols, disabled) {
         const price = data[0];
         const percent = data[1].slice(1, data[1].length - 2);
         const stock = [symbol, price, percent];
+=======
+      if (quote[0][1] !== 'N/A') {
+        const symbol = textField.value.toUpperCase();
+        const stock = [ symbol, ...quote ];
+>>>>>>> grr
         textField.value = '';
 
         if (symbolNotFound(symbols, symbol)) {
@@ -26,7 +32,14 @@ function addSymbol(symbols, disabled) {
           displaySymbols(symbols);
           updateSymbols();
         }
+<<<<<<< HEAD
       } 
+=======
+      } else {
+        message.innerHTML = 'Symbol could not be looked up! Try again';
+        textField.value = '';
+      }
+>>>>>>> grr
     });
   }
 }
